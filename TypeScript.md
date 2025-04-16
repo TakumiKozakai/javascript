@@ -4,7 +4,8 @@
 
 静的な型付け機能を搭載したAltJS*。  
 静的型付けによりコンパイル時エラー検出や型によるコードの安全性向上を実現する。  
-*AltJSとは、JavaScriptに変換できるプログラミング言語のこと。
+
+*AltJS：JavaScriptに変換できるプログラミング言語のこと。
 
 ## 　TypeScriptの実行環境準備
 
@@ -40,10 +41,10 @@ let bool: boolean = true;
 配列
 
 ```typescript
-let arr2: number[] = [0, 1, 2];
-arr2.push(3);
+let arr1: number[] = [0, 1, 2];
+arr1.push(3);
 
-const arr1: Array<number> = [0, 1, 2];
+const arr2: Array<number> = [0, 1, 2];
 ```
 
 オブジェクト型・・・キーとバリューによるデータ形式のインスタンス
@@ -222,6 +223,7 @@ if (enumValue === Direction.Down) {
 基本の書き方
 
 ```typescript
+// func(引数: 引数の型名): 返却値の型名 => {}
 function func2(name: string): string {
     return `Hello ${name}`;
 }
@@ -758,7 +760,8 @@ npm install prettier --save-dev
 
 フォーマット設定は、.prettierrcというファイルに記述して、プロジェクトのディレクトリ配下に配置する。
 
-```.prettierrc
+```
+// .prettierrc
 {
     //コードの末尾にセミコロンを入れるか
     "semi":false,
@@ -773,7 +776,8 @@ npm install prettier --save-dev
 
 package.json内のscriptsの項目に以下のように追記する。
 
-```package.json
+```
+// package.json
 {
     "scripts":{
         ...
@@ -808,3 +812,18 @@ Googleスタイルガイド
 　Googleが公開しているスタイルガイド。TypeScriptについても公開されている  
 TypeScriptDeepDiveスタイルガイド  
 　TypeScriptで人気の高いスタイルガイド
+
+## ライブラリの型定義
+
+外部ライブラリの型定義に関しては、そのライブラリの対応状況に応じて3パターンに分かれる。
+
+- パターン1 : 型定義がない  
+ライブラリが古かったりすると、そもそも型定義が存在しないライブラリもあるため、この場合は自分で作成が必要。
+
+- パターン2 : ライブラリが型定義を包含している  
+自分での作成は不要で、インストールすれば型が効いている状態で使用できる。  
+「型定義を包含してくれているかどうか」は、GitHubのリポジトリで「~.d.tsファイル」があるかどうかで判断できる。  
+例えば、axiosではindex.d.tsファイルがある。
+- パターン3 : 型定義を別でインストールする  
+DefinitelyTypedというリポジトリで様々なライブラリの型定義が管理されている。  
+管理下のライブラリはnpm installでインストールできる。
